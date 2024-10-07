@@ -1,8 +1,8 @@
 FROM alpine:3.19
 LABEL maintainer="Huan LI <zixia@zixia.net>"
 
-ENV BATS_VERSION 1.2.1
-ENV S6_VERSION 2.1.0.0
+ENV BATS_VERSION=1.2.1
+ENV S6_VERSION=2.1.0.0
 
 ## Install System
 

@@ -215,7 +215,9 @@ function start_postfix {
 
     echo "Postfix logging configuration"
     if [ "$SMF_POSTFIXLOG" == "" ]; then
-      echo "Postfix will use the default logging configuration: /dev/stdout"
+        echo "Postfix will default logging configuration to stdout"
+        postconf maillog_file="/dev/stdout"
+        postfix upgrade-configuration
     else
       if [[ $SMF_POSTFIXLOG != "/var"* ]]; then
         echo "SMF_POSTFIXLOG must be a directory path starting with \"/var\""

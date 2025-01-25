@@ -260,4 +260,10 @@ SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION="$SMF_POSTFIXLOG"
     fi
 }
 
+echo "Restore SMF_POSTFIXLOG=$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION"
 SMF_POSTFIXLOG="$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION"
+
+postfix stop
+postconf maillog_file="$SMF_POSTFIXLOG"
+postfix upgrade-configuration
+postfix start

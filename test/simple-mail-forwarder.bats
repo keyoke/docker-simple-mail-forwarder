@@ -256,14 +256,16 @@ SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION="$SMF_POSTFIXLOG"
           echo "Postfix should log to /var/log/postfix/postfix.log"
           exit 1
         fi
+        if [ "$SMF_POSTFIXLOG" != "$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION" ]; then
+            echo "set maillog_file to '$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION'"
+            postfix stop
+            postconf maillog_file="$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION"
+            postfix upgrade-configuration
+            postfix start
+        fi
       fi
     fi
 }
 
-echo "Restore SMF_POSTFIXLOG=$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION"
 SMF_POSTFIXLOG="$SMF_POSTFIXLOG_BEFORE_TEST_EXECUTION"
 
-postfix stop
-postconf maillog_file="$SMF_POSTFIXLOG"
-postfix upgrade-configuration
-postfix start

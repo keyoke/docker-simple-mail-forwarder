@@ -362,6 +362,19 @@ else
     echo ">> END SMF_DOMAIN found. value:[$SMF_DOMAIN]"
 fi
 
+if [ "" == "$SMF_CONFIG_FILE" ]
+then
+    echo ">> END SMF_CONFIG_FILE not set."
+else
+    if [ -f "$SMF_CONFIG_FILE" ]
+    then
+        echo ">> ENV SMF_CONFIG_FILE found. value:[$SMF_CONFIG_FILE]"
+        SMF_CONFIG=$(cat $SMF_CONFIG_FILE)
+    else
+        echo ">> ENV SMF_CONFIG_FILE not found. value:[$SMF_CONFIG_FILE]"
+    fi
+fi
+
 if [ "" == "$SMF_CONFIG" ]
 then
     echo ">> END SMF_CONFIG not set."
